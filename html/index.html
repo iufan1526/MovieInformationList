@@ -91,21 +91,25 @@
             .catch(err => console.error(err));
         };
 
+        const showId = (id) => {
+            alert(`이 영화의 ID는 ${id} 입니다.`);
+        };
+
         const printMovieList = (responseObj, searchValue) => {
             const cardList = document.querySelector('.cardList');
-            cardList.innerHTML = "";
+            cardList.innerHTML = null;
 
             if (searchValue !== undefined) {
                 responseObj = responseObj.filter((obj) => {
                     if (obj.title.toUpperCase().search(searchValue.toUpperCase()) !== -1) return true; 
                 });
             } 
-
-            responseObj.forEach(({poster_path, title, overview, vote_average}) => {
+            
+            responseObj.forEach(({poster_path, title, overview, vote_average, id}) => {
                 let imageUrl = `https://image.tmdb.org/t/p/original/${poster_path}`;
 
                 let appendHtml = `<div class="col">
-                                    <div class="card">
+                                    <div class="card" onclick="showId(${id});">
                                         <img src="${imageUrl}" class="card-img-top"
                                             alt="...">
                                         <div class="card-body">
